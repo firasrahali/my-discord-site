@@ -8,14 +8,18 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #0a0a0a;
+  background: #000;
   overflow: hidden;
   color: white;
   text-align: center;
   cursor: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-/* ===== floating stars background ===== */
+/* 🌌 stars background */
 .star-bg {
   position: fixed;
   width: 100%;
@@ -28,20 +32,26 @@ body {
   width: 2px;
   height: 2px;
   background: white;
-  opacity: 0.5;
+  opacity: 0.6;
   border-radius: 50%;
+  animation: twinkle 3s infinite ease-in-out;
 }
 
-/* ===== mouse trail stars ===== */
+@keyframes twinkle {
+  0%,100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+
+/* ✨ mouse trail */
 .trail {
   position: absolute;
   width: 6px;
   height: 6px;
-  background: white;
+  background: #00f7ff;
   border-radius: 50%;
   pointer-events: none;
   animation: fade 0.8s linear forwards;
-  box-shadow: 0 0 10px white;
+  box-shadow: 0 0 12px #00f7ff;
 }
 
 @keyframes fade {
@@ -49,58 +59,78 @@ body {
   100% { transform: scale(0); opacity: 0; }
 }
 
-/* ===== content ===== */
+/* 🔥 title */
 .title {
-  margin-top: 70px;
-  font-size: 70px;
-  letter-spacing: 12px;
+  font-size: 75px;
+  letter-spacing: 14px;
   font-weight: bold;
+  background: linear-gradient(90deg,#00f7ff,#5865F2,#fff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   animation: float 3s ease-in-out infinite;
-  position: relative;
-  z-index: 2;
+  margin-bottom: 20px;
 }
 
 @keyframes float {
   0% { transform: translateY(0px); }
-  50% { transform: translateY(-12px); }
+  50% { transform: translateY(-15px); }
   100% { transform: translateY(0px); }
 }
 
+/* 💎 card */
 .card {
-  margin-top: 50px;
-  display: inline-block;
-  padding: 30px;
+  padding: 35px;
+  border-radius: 20px;
   background: rgba(255,255,255,0.06);
-  border-radius: 18px;
-  backdrop-filter: blur(12px);
-  min-width: 320px;
-  position: relative;
+  backdrop-filter: blur(15px);
+  min-width: 340px;
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: 0.4s;
   z-index: 2;
 }
 
+.card:hover {
+  transform: scale(1.06);
+  box-shadow: 0 0 50px #00f7ff;
+  border: 1px solid #00f7ff;
+}
+
+/* 🎮 texts */
 .kick {
   font-size: 26px;
   color: #5865F2;
-  animation: pulse 1.5s infinite;
-  margin-bottom: 10px;
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.08); }
-  100% { transform: scale(1); }
+  font-weight: bold;
+  text-shadow: 0 0 10px #5865F2;
 }
 
 .discord {
-  font-size: 20px;
+  font-size: 18px;
   color: #00c6ff;
-  margin-bottom: 15px;
+  margin-top: 10px;
 }
 
 .name {
-  font-size: 18px;
+  font-size: 16px;
   color: #aaa;
   letter-spacing: 2px;
+}
+
+/* 🔘 buttons */
+button {
+  margin: 10px;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  background: linear-gradient(90deg,#5865F2,#00f7ff);
+  color: white;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 20px #00f7ff;
 }
 </style>
 </head>
@@ -109,19 +139,26 @@ body {
 
 <div class="star-bg" id="bg"></div>
 
-<div class="title">FIRAS</div>
+<div>
+  <div class="title">FIRAS</div>
 
-<div class="card">
-  <div class="kick">KICK</div>
-  <div class="discord">DISCORD</div>
-  <div class="name">FIRAS_RAHALI</div>
+  <div class="card">
+    <div class="kick">KICK</div>
+    <div class="discord">Discord ID: 1350859677470163026</div>
+    <div class="name">FIRAS_RAHALI</div>
+
+    <br>
+
+    <button onclick="openDiscord()">Open Discord</button>
+    <button onclick="openKick()">Open Kick</button>
+  </div>
 </div>
 
 <script>
-/* ===== background stars ===== */
+/* stars */
 const bg = document.getElementById("bg");
 
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 120; i++) {
   let s = document.createElement("div");
   s.className = "bg-star";
   s.style.left = Math.random() * 100 + "vw";
@@ -129,7 +166,7 @@ for (let i = 0; i < 100; i++) {
   bg.appendChild(s);
 }
 
-/* ===== mouse trail effect ===== */
+/* mouse trail */
 document.addEventListener("mousemove", (e) => {
   let star = document.createElement("div");
   star.className = "trail";
@@ -139,10 +176,17 @@ document.addEventListener("mousemove", (e) => {
 
   document.body.appendChild(star);
 
-  setTimeout(() => {
-    star.remove();
-  }, 800);
+  setTimeout(() => star.remove(), 800);
 });
+
+/* buttons */
+function openDiscord() {
+  window.open("https://discord.com/users/1350859677470163026", "_blank");
+}
+
+function openKick() {
+  window.open("https://kick.com/FIRAS_RAHALI", "_blank");
+}
 </script>
 
 </body>

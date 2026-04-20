@@ -1,13 +1,10 @@
 body {
   margin: 0;
-  height: 100vh;
+  min-height: 100vh;
   font-family: Arial, sans-serif;
   overflow: hidden;
   color: white;
   cursor: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   text-align: center;
   background: #000;
 }
@@ -15,12 +12,11 @@ body {
 /* 🌈 animated background */
 .bg {
   position: fixed;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background: linear-gradient(-45deg,#0f0c29,#302b63,#24243e,#000);
   background-size: 400% 400%;
   animation: moveBG 10s ease infinite;
-  z-index: -2;
+  z-index: -3;
 }
 
 @keyframes moveBG {
@@ -29,12 +25,11 @@ body {
   100%{background-position:0% 50%}
 }
 
-/* 🌌 stars layer */
+/* 🌌 stars */
 .star-bg {
   position: fixed;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
+  inset: 0;
+  z-index: -2;
 }
 
 .bg-star {
@@ -48,26 +43,15 @@ body {
 }
 
 @keyframes twinkle {
-  0%, 100% { opacity: 0.2; }
+  0%,100% { opacity: 0.2; }
   50% { opacity: 1; }
 }
 
-/* 💎 card */
-.card {
-  padding: 35px;
-  border-radius: 20px;
-  background: rgba(255,255,255,0.06);
-  backdrop-filter: blur(15px);
-  min-width: 340px;
-  border: 1px solid rgba(255,255,255,0.1);
-  transition: 0.4s;
+/* 💎 layout wrapper */
+.container {
+  position: relative;
   z-index: 2;
-}
-
-.card:hover {
-  transform: scale(1.06);
-  box-shadow: 0 0 50px #00f7ff;
-  border: 1px solid #00f7ff;
+  padding-top: 40px;
 }
 
 /* 🔥 title */
@@ -75,7 +59,7 @@ body {
   font-size: 70px;
   font-weight: bold;
   letter-spacing: 14px;
-  background: linear-gradient(90deg, #00f7ff, #5865F2, #fff);
+  background: linear-gradient(90deg,#00f7ff,#5865F2,#fff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: float 3s ease-in-out infinite;
@@ -87,7 +71,26 @@ body {
   100% { transform: translateY(0px); }
 }
 
-/* 🎮 text */
+/* 💎 card */
+.card {
+  margin-top: 25px;
+  padding: 35px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(15px);
+  min-width: 340px;
+  display: inline-block;
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: 0.4s;
+}
+
+.card:hover {
+  transform: scale(1.06);
+  box-shadow: 0 0 50px #00f7ff;
+  border: 1px solid #00f7ff;
+}
+
+/* 🎮 texts */
 .kick {
   font-size: 26px;
   color: #5865F2;
@@ -98,12 +101,14 @@ body {
 .discord {
   font-size: 18px;
   color: #00c6ff;
+  margin-top: 8px;
 }
 
 .name {
   font-size: 16px;
   color: #aaa;
   letter-spacing: 2px;
+  margin-top: 5px;
 }
 
 /* 🔘 buttons */
@@ -113,7 +118,7 @@ button {
   border: none;
   border-radius: 12px;
   cursor: pointer;
-  background: linear-gradient(90deg, #5865F2, #00f7ff);
+  background: linear-gradient(90deg,#5865F2,#00f7ff);
   color: white;
   font-weight: bold;
   transition: 0.3s;

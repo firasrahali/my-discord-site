@@ -19,7 +19,7 @@ body {
   height: 100vh;
 }
 
-/* 🌌 stars background */
+/* 🌌 stars */
 .star-bg {
   position: fixed;
   width: 100%;
@@ -100,7 +100,6 @@ body {
   font-size: 26px;
   color: #5865F2;
   font-weight: bold;
-  text-shadow: 0 0 10px #5865F2;
 }
 
 .discord {
@@ -132,6 +131,21 @@ button:hover {
   transform: translateY(-3px);
   box-shadow: 0 0 20px #00f7ff;
 }
+
+/* 🎵 music box */
+.music {
+  margin-top: 15px;
+}
+
+#songName {
+  margin: 10px 0;
+  color: #00f7ff;
+  font-weight: bold;
+}
+
+input[type="range"] {
+  width: 100%;
+}
 </style>
 </head>
 
@@ -143,19 +157,40 @@ button:hover {
   <div class="title">FIRAS</div>
 
   <div class="card">
+
     <div class="kick">KICK</div>
     <div class="discord">Discord ID: 1350859677470163026</div>
     <div class="name">FIRAS_RAHALI</div>
 
     <br>
 
-    <button onclick="openDiscord()">Open Discord</button>
-    <button onclick="openKick()">Open Kick</button>
+    <button onclick="openDiscord()">Discord</button>
+    <button onclick="openKick()">Kick</button>
+
+    <hr>
+
+    <!-- 🎵 MUSIC -->
+    <div class="music">
+      <div id="songName">Alan Walker - Spectre</div>
+
+      <button onclick="prevSong()">⬅</button>
+      <button onclick="toggleMusic()">▶ / ⏸</button>
+      <button onclick="nextSong()">➡</button>
+
+      <br>
+
+      🔊 <input type="range" min="0" max="1" step="0.01" value="0.5" oninput="setVolume(this.value)">
+    </div>
+
   </div>
 </div>
 
+<!-- 🎧 audio -->
+<audio id="music"></audio>
+
 <script>
-/* stars */
+
+/* 🌌 stars */
 const bg = document.getElementById("bg");
 
 for (let i = 0; i < 120; i++) {
@@ -166,20 +201,17 @@ for (let i = 0; i < 120; i++) {
   bg.appendChild(s);
 }
 
-/* mouse trail */
+/* ✨ mouse trail */
 document.addEventListener("mousemove", (e) => {
   let star = document.createElement("div");
   star.className = "trail";
-
   star.style.left = e.clientX + "px";
   star.style.top = e.clientY + "px";
-
   document.body.appendChild(star);
-
   setTimeout(() => star.remove(), 800);
 });
 
-/* buttons */
+/* 🔗 links */
 function openDiscord() {
   window.open("https://discord.com/users/1350859677470163026", "_blank");
 }
@@ -187,6 +219,41 @@ function openDiscord() {
 function openKick() {
   window.open("https://kick.com/FIRAS_RAHALI", "_blank");
 }
+
+/* 🎵 music system */
+let songs = [
+  { name: "Alan Walker - Spectre", file: "music.mp3" },
+  { name: "TheFatRat - Xenogenesis", file: "music2.mp3" }
+];
+
+let index = 0;
+let music = document.getElementById("music");
+
+function loadSong() {
+  music.src = songs[index].file;
+  music.play();
+  document.getElementById("songName").innerText = songs[index].name;
+}
+
+function toggleMusic() {
+  if (music.src == "") loadSong();
+  music.paused ? music.play() : music.pause();
+}
+
+function nextSong() {
+  index = (index + 1) % songs.length;
+  loadSong();
+}
+
+function prevSong() {
+  index = (index - 1 + songs.length) % songs.length;
+  loadSong();
+}
+
+function setVolume(v) {
+  music.volume = v;
+}
+
 </script>
 
 </body>

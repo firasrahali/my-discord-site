@@ -5,39 +5,57 @@ function openDiscord() {
   window.open(`https://discord.com/users/${userID}`, "_blank");
 }
 
-// 📋 Copy ID
+// 📋 Copy ID (safe + modern)
 function copyID() {
-  navigator.clipboard.writeText(userID);
-  alert("ID Copied: " + userID);
+  navigator.clipboard.writeText(userID)
+    .then(() => {
+      alert("ID Copied: " + userID);
+    })
+    .catch(() => {
+      alert("Failed to copy ID");
+    });
 }
 
-// 🟢 Fetch live Discord status (Lanyard API)
+// 🟢 Load Discord status (Lanyard API)
 async function loadDiscord() {
+  const statusEl = document.getElementById("status");
+  const avatarEl = document.getElementById("avatar");
+
   try {
     const res = await fetch(`https://api.lanyard.rest/v1/users/${userID}`);
-    const data = await res.json();
 
-    const d = data.data;
+    if (!res.ok) throw new Error("API error");
 
-    // avatar
-    document.getElementById("avatar").src =
-      `https://cdn.discordapp.com/avatars/${userID}/${d.discord_user.avatar}.png`;
+    const json = await res.json();
+    const d = json.data;
 
-    // status
-    let status = d.discord_status;
+    // 🖼️ avatar safe check
+    if (d.discord_user.avatar && avatarEl) {
+      avatarEl.src =
+        `https://cdn.discordapp.com/avatars/${userID}/${d.discord_user.avatar}.png`;
+    }
 
-    let emoji = "🟢";
-    if (status === "idle") emoji = "🟡";
-    if (status === "dnd") emoji = "🔴";
-    if (status === "offline") emoji = "⚫";
+    // 🟢 status mapping
+    const statusMap = {
+      online: "🟢 Online",
+      idle: "🟡 Idle",
+      dnd: "🔴 Do Not Disturb",
+      offline: "⚫ Offline"
+    };
 
-    document.getElementById("status").innerText =
-      `${emoji} Status: ${status}`;
+    if (statusEl) {
+      statusEl.innerText = statusMap[d.discord_status] || "⚫ Unknown";
+    }
 
-  } catch (e) {
-    document.getElementById("status").innerText =
-      "⚠️ Failed to load status";
+  } catch (err) {
+    console.log(err);
+
+    const statusEl = document.getElementById("status");
+    if (statusEl) {
+      statusEl.innerText = "⚠️ Status unavailable";
+    }
   }
 }
 
+// 🚀 auto load
 loadDiscord();

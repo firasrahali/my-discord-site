@@ -1,7 +1,7 @@
 body{
   margin:0;
   font-family:Arial;
-  overflow:hidden;
+  overflow-x:hidden; /* 🔥 FIX مهم */
   color:white;
   background:#000;
 }
@@ -76,6 +76,12 @@ body{
   border-radius:20px;
   backdrop-filter:blur(10px);
   border:1px solid rgba(255,255,255,0.1);
+  transition:0.3s;
+}
+
+/* ✨ FIX hover stability */
+.card:hover{
+  transform:translateY(-5px) scale(1.02);
 }
 
 /* buttons */

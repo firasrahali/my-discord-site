@@ -8,7 +8,7 @@
 body{
   margin:0;
   font-family:Arial;
-  overflow:hidden;
+  overflow-x:hidden;
   color:white;
   background:#000;
 }
@@ -36,6 +36,7 @@ body{
   flex-direction:column;
   justify-content:center;
   align-items:center;
+  text-align:center;
 }
 
 .title{
@@ -59,22 +60,32 @@ body{
   background:linear-gradient(90deg,#00f7ff,#5865F2);
   color:white;
   cursor:pointer;
+  transition:0.3s;
+}
+
+.btn:hover{
+  transform:scale(1.1);
 }
 
 /* main */
 .main{
   display:none;
   padding:40px;
+  text-align:center;
 }
 
+/* cards */
 .card{
   margin:20px auto;
   padding:25px;
-  width:300px;
+  width:320px;
   background:rgba(255,255,255,0.06);
   border-radius:20px;
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,0.1);
 }
 
+/* buttons */
 button{
   margin:8px;
   padding:10px 15px;
@@ -83,8 +94,17 @@ button{
   background:linear-gradient(90deg,#5865F2,#00f7ff);
   color:white;
   cursor:pointer;
+  transition:0.3s;
 }
 
+button:hover{
+  transform:translateY(-3px);
+}
+
+/* discord iframe fix */
+iframe{
+  border-radius:12px;
+}
 </style>
 </head>
 
@@ -103,6 +123,7 @@ button{
 <!-- MAIN -->
 <div class="main" id="main">
 
+  <!-- PROFILE -->
   <div class="card">
     👤 PROFILE
     <br><br>
@@ -110,17 +131,16 @@ button{
     <button onclick="openDiscord()">Discord</button>
   </div>
 
+  <!-- DISCORD SERVER -->
   <div class="card">
     💬 DISCORD SERVER
 
     <br><br>
 
-    <!-- 🔥 FIXED SERVER ID -->
     <iframe 
       src="https://discord.com/widget?id=1471603948992594003&theme=dark"
       width="300"
-      height="400"
-      frameborder="0">
+      height="400">
     </iframe>
 
   </div>

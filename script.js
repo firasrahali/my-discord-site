@@ -12,7 +12,7 @@ function copyID() {
     .catch(() => alert("Copy failed ❌"));
 }
 
-/* 🟢 load discord status (Lanyard API) */
+/* 🟢 load discord status */
 async function loadDiscord() {
 
   const statusEl = document.getElementById("status");
@@ -21,14 +21,12 @@ async function loadDiscord() {
   try {
     const res = await fetch(`https://api.lanyard.rest/v1/users/${userID}`);
 
-    if (!res.ok) throw new Error("API error");
-
     const json = await res.json();
     const d = json?.data;
 
     if (!d) return;
 
-    /* 🖼️ avatar */
+    /* 🖼️ avatar safe */
     if (avatarEl) {
       const avatar = d.discord_user?.avatar;
       const id = d.discord_user?.id;
@@ -48,19 +46,19 @@ async function loadDiscord() {
 
     if (statusEl) {
       statusEl.textContent =
-        statusMap[d.discord_status] ?? "⚫ Unknown";
+        statusMap[d.discord_status] || "⚫ Unknown";
     }
 
   } catch (err) {
-    console.log("Discord fetch error:", err);
+    console.log("Discord API error:", err);
 
-    if (statusEl) statusEl.textContent = "⚠️ Discord unavailable";
+    if (statusEl) statusEl.textContent = "⚠️ Offline";
     if (avatarEl) avatarEl.src = "https://cdn.discordapp.com/embed/avatars/0.png";
   }
 }
 
-/* 🚀 start */
+/* 🚀 init */
 loadDiscord();
 
-/* 🔄 refresh كل 20 ثانية */
+/* 🔄 refresh safe (no spam) */
 setInterval(loadDiscord, 20000);

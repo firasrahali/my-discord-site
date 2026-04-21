@@ -2,135 +2,138 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>FIRAS SITE</title>
+<title>FIRAS</title>
 
 <style>
-body {
-  margin: 0;
-  font-family: Arial;
-  overflow: hidden;
-  color: white;
-  cursor: none;
-  background: black;
+body{
+  margin:0;
+  font-family:Arial;
+  overflow:hidden;
+  cursor:none;
+  color:white;
+  background:#000;
 }
 
-/* 🌈 background */
-.bg {
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(-45deg,#0f0c29,#302b63,#24243e,#000);
-  background-size: 400% 400%;
-  animation: bg 10s infinite;
-  z-index: -3;
+/* 🌌 background */
+.bg{
+  position:fixed;
+  inset:0;
+  background:linear-gradient(-45deg,#0f0c29,#302b63,#24243e,#000);
+  background-size:400% 400%;
+  animation:move 10s infinite;
+  z-index:-3;
 }
 
-@keyframes bg {
+@keyframes move{
   0%{background-position:0% 50%}
   50%{background-position:100% 50%}
   100%{background-position:0% 50%}
 }
 
-/* 🌌 stars */
-.star {
-  position: fixed;
-  inset: 0;
-  z-index: -2;
+/* ✨ stars */
+.star{
+  position:fixed;
+  inset:0;
+  z-index:-2;
 }
 
-.dot {
-  position: absolute;
-  width: 2px;
-  height: 2px;
-  background: white;
-  border-radius: 50%;
-  animation: tw 3s infinite;
+.dot{
+  position:absolute;
+  width:2px;
+  height:2px;
+  background:white;
+  border-radius:50%;
+  animation:tw 3s infinite;
 }
 
-@keyframes tw {
+@keyframes tw{
   0%,100%{opacity:.2}
   50%{opacity:1}
 }
 
-/* 💎 intro */
-.intro {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+/* 🌟 INTRO */
+.intro{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
 }
 
-.title {
-  font-size: 70px;
-  background: linear-gradient(90deg,#00f7ff,#5865F2,#fff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: float 3s infinite;
+.title{
+  font-size:70px;
+  background:linear-gradient(90deg,#00f7ff,#5865F2,#fff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
 
-@keyframes float {
-  0%{transform:translateY(0)}
-  50%{transform:translateY(-15px)}
-  100%{transform:translateY(0)}
+.sub{
+  margin-top:10px;
+  opacity:0.7;
 }
 
-.sub {
-  opacity: 0.7;
-  letter-spacing: 3px;
+/* 🔘 button */
+.btn{
+  margin-top:25px;
+  padding:15px 25px;
+  border:none;
+  border-radius:20px;
+  background:linear-gradient(90deg,#00f7ff,#5865F2);
+  color:white;
+  cursor:pointer;
+  font-weight:bold;
+  transition:0.3s;
 }
 
-.btn {
-  margin-top: 20px;
-  padding: 15px 25px;
-  border: none;
-  border-radius: 20px;
-  background: linear-gradient(90deg,#00f7ff,#5865F2);
-  cursor: pointer;
-  color: white;
-  font-weight: bold;
+.btn:hover{
+  transform:scale(1.1);
 }
 
-/* 💎 main page */
-.main {
-  display: none;
-  padding-top: 50px;
-  text-align: center;
+/* 💎 MAIN */
+.main{
+  display:none;
+  padding:40px;
 }
 
-.card {
-  margin: 20px auto;
-  padding: 30px;
-  width: 350px;
-  border-radius: 20px;
-  background: rgba(255,255,255,0.06);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,0.1);
+/* layout */
+.top-right{
+  position:absolute;
+  top:20px;
+  right:20px;
+  padding:15px;
+  background:rgba(255,255,255,0.05);
+  border-radius:15px;
+  backdrop-filter:blur(10px);
 }
 
-button {
-  margin: 8px;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 12px;
-  background: linear-gradient(90deg,#5865F2,#00f7ff);
-  color: white;
-  cursor: pointer;
+.center{
+  text-align:center;
+  margin-top:80px;
 }
 
-input {
-  width: 100%;
+.card{
+  margin:20px auto;
+  padding:25px;
+  width:300px;
+  background:rgba(255,255,255,0.06);
+  border-radius:20px;
+  backdrop-filter:blur(15px);
 }
 
-/* 🖱️ mouse */
-.cursor {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  background: #00f7ff;
-  border-radius: 50%;
-  pointer-events: none;
+.right{
+  position:absolute;
+  right:20px;
+  top:200px;
+}
+
+button{
+  margin:8px;
+  padding:10px 15px;
+  border:none;
+  border-radius:12px;
+  background:linear-gradient(90deg,#5865F2,#00f7ff);
+  color:white;
+  cursor:pointer;
 }
 </style>
 </head>
@@ -150,20 +153,44 @@ input {
 <!-- 💎 MAIN -->
 <div class="main" id="main">
 
-  <h2>👤 FIRAS</h2>
-
-  <div class="card">
-    <button onclick="openKick()">Kick</button>
-    <button onclick="openDiscord()">Discord</button>
+  <!-- DEV -->
+  <div class="top-right">
+    👨‍💻 DEV FiveM
   </div>
 
-  <div class="card">
-    <h3>👨‍💻 DEV FiveM</h3>
+  <!-- CENTER -->
+  <div class="center">
+    <h2>FIRAS</h2>
+
+    <div class="card">
+      👤 PROFILE
+      <br><br>
+      <button onclick="openKick()">Kick</button>
+      <button onclick="openDiscord()">Discord</button>
+    </div>
   </div>
 
-  <div class="card">
-    <h3>WELCOME TO MY DISCORD SERVER</h3>
-    <button onclick="window.open('https://discord.gg/EPMaJW3p')">JOIN</button>
+  <!-- DISCORD SERVER -->
+  <div class="center">
+    <div class="card">
+      💬 WELCOME TO MY DISCORD SERVER
+      <br><br>
+      <button onclick="window.open('https://discord.gg/EPMaJW3p')">
+        JOIN SERVER
+      </button>
+    </div>
+  </div>
+
+  <!-- RIGHT INFO -->
+  <div class="right">
+    <div class="card">
+      <b>مشروعي:</b><br>
+      هذا مشروع شخصي متاعي نطوّرو فيه برشا حاجات:<br>
+      مواقع، تصميم، و تجارب جديدة 💻🔥
+      <br><br>
+      <b>ملاحظة:</b><br>
+      تواصل معايا عادي لأي حاجة 🤝
+    </div>
   </div>
 
 </div>
@@ -171,7 +198,7 @@ input {
 <script>
 
 /* 🌌 stars */
-const star = document.getElementById("star");
+const star=document.getElementById("star");
 
 for(let i=0;i<80;i++){
   let d=document.createElement("div");
@@ -181,7 +208,7 @@ for(let i=0;i<80;i++){
   star.appendChild(d);
 }
 
-/* 🚀 enter site */
+/* 🚀 continue */
 function enter(){
   document.getElementById("intro").style.display="none";
   document.getElementById("main").style.display="block";
@@ -195,16 +222,6 @@ function openDiscord(){
 function openKick(){
   window.open("https://kick.com/FIRAS_RAHALI");
 }
-
-/* 🖱️ mouse effect */
-document.addEventListener("mousemove",(e)=>{
-  let c=document.createElement("div");
-  c.className="cursor";
-  c.style.left=e.clientX+"px";
-  c.style.top=e.clientY+"px";
-  document.body.appendChild(c);
-  setTimeout(()=>c.remove(),300);
-});
 
 </script>
 

@@ -1,6 +1,6 @@
 const userID = "1350859677470163026";
 
-/* 🔥 Discord open */
+/* 🔥 open discord */
 function openDiscord() {
   window.open(`https://discord.com/users/${userID}`, "_blank");
 }
@@ -12,8 +12,9 @@ function copyID() {
     .catch(() => alert("Copy failed ❌"));
 }
 
-/* 🟢 Discord status */
+/* 🟢 load discord status */
 async function loadDiscord() {
+
   const statusEl = document.getElementById("status");
   const avatarEl = document.getElementById("avatar");
 
@@ -22,11 +23,15 @@ async function loadDiscord() {
     const json = await res.json();
     const d = json.data;
 
-    if (!d) throw new Error("No data");
+    if (!d) return;
 
-    /* 🖼️ avatar FIX */
-    if (avatarEl && d.discord_user.avatar) {
-      avatarEl.src = `https://cdn.discordapp.com/avatars/${d.discord_user.id}/${d.discord_user.avatar}.png`;
+    /* 🖼️ avatar safe */
+    if (avatarEl) {
+      const avatar = d.discord_user.avatar;
+
+      avatarEl.src = avatar
+        ? `https://cdn.discordapp.com/avatars/${d.discord_user.id}/${avatar}.png`
+        : "https://cdn.discordapp.com/embed/avatars/0.png";
     }
 
     /* 🟢 status */
@@ -38,18 +43,21 @@ async function loadDiscord() {
     };
 
     if (statusEl) {
-      statusEl.innerText = statusMap[d.discord_status] || "⚫ Unknown";
+      statusEl.innerText =
+        statusMap[d.discord_status] || "⚫ Unknown";
     }
 
   } catch (err) {
     console.log(err);
 
     if (statusEl) {
-      statusEl.innerText = "⚠️ Discord offline";
+      statusEl.innerText = "⚠️ Offline / API error";
     }
   }
 }
 
-/* 🚀 auto refresh (PRO feature) */
+/* 🚀 init */
 loadDiscord();
-setInterval(loadDiscord, 10000);
+
+/* 🔄 refresh safer */
+setInterval(loadDiscord, 15000);

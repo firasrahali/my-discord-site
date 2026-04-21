@@ -2,18 +2,16 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>FIRAS</title>
+<title>FIRAS SITE</title>
 
 <style>
 body {
   margin: 0;
-  min-height: 100vh;
-  font-family: Arial, sans-serif;
+  font-family: Arial;
   overflow: hidden;
   color: white;
   cursor: none;
-  text-align: center;
-  background: #000;
+  background: black;
 }
 
 /* 🌈 background */
@@ -22,103 +20,117 @@ body {
   inset: 0;
   background: linear-gradient(-45deg,#0f0c29,#302b63,#24243e,#000);
   background-size: 400% 400%;
-  animation: moveBG 10s ease infinite;
+  animation: bg 10s infinite;
   z-index: -3;
 }
 
-@keyframes moveBG {
+@keyframes bg {
   0%{background-position:0% 50%}
   50%{background-position:100% 50%}
   100%{background-position:0% 50%}
 }
 
 /* 🌌 stars */
-.star-bg {
+.star {
   position: fixed;
   inset: 0;
   z-index: -2;
 }
 
-.bg-star {
+.dot {
   position: absolute;
   width: 2px;
   height: 2px;
   background: white;
-  opacity: 0.6;
   border-radius: 50%;
-  animation: twinkle 3s infinite ease-in-out;
+  animation: tw 3s infinite;
 }
 
-@keyframes twinkle {
-  0%,100% { opacity: 0.2; }
-  50% { opacity: 1; }
+@keyframes tw {
+  0%,100%{opacity:.2}
+  50%{opacity:1}
 }
 
-/* 💎 layout */
-.container {
-  position: relative;
-  z-index: 2;
-  padding-top: 40px;
+/* 💎 intro */
+.intro {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-/* 🔥 title */
 .title {
   font-size: 70px;
-  letter-spacing: 14px;
   background: linear-gradient(90deg,#00f7ff,#5865F2,#fff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  animation: float 3s infinite;
 }
 
-/* 💎 card */
-.card {
-  margin-top: 25px;
-  padding: 35px;
-  border-radius: 20px;
-  background: rgba(255,255,255,0.06);
-  backdrop-filter: blur(15px);
-  display: inline-block;
+@keyframes float {
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-15px)}
+  100%{transform:translateY(0)}
 }
 
-/* 🔘 buttons */
-button {
-  margin: 10px;
-  padding: 12px 18px;
+.sub {
+  opacity: 0.7;
+  letter-spacing: 3px;
+}
+
+.btn {
+  margin-top: 20px;
+  padding: 15px 25px;
   border: none;
-  border-radius: 12px;
+  border-radius: 20px;
+  background: linear-gradient(90deg,#00f7ff,#5865F2);
   cursor: pointer;
-  background: linear-gradient(90deg,#5865F2,#00f7ff);
   color: white;
   font-weight: bold;
-  transition: 0.3s;
 }
 
-button:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 20px #00f7ff;
+/* 💎 main page */
+.main {
+  display: none;
+  padding-top: 50px;
+  text-align: center;
 }
 
-/* 🎧 slider FIX */
-input[type="range"] {
-  width: 100%;
+.card {
+  margin: 20px auto;
+  padding: 30px;
+  width: 350px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+button {
+  margin: 8px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(90deg,#5865F2,#00f7ff);
+  color: white;
   cursor: pointer;
 }
 
-/* 🖱️ trail */
-.trail {
+input {
+  width: 100%;
+}
+
+/* 🖱️ mouse */
+.cursor {
   position: absolute;
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   background: #00f7ff;
   border-radius: 50%;
   pointer-events: none;
-  animation: fade 0.7s linear forwards;
-  box-shadow: 0 0 15px #00f7ff;
-}
-
-@keyframes fade {
-  0% { transform: scale(1); opacity: 1; }
-  100% { transform: scale(0); opacity: 0; }
 }
 </style>
 </head>
@@ -126,91 +138,73 @@ input[type="range"] {
 <body>
 
 <div class="bg"></div>
-<div class="star-bg" id="bg"></div>
+<div class="star" id="star"></div>
 
-<div class="container">
+<!-- 🌟 INTRO -->
+<div class="intro" id="intro">
   <div class="title">FIRAS</div>
-
-  <div class="card">
-
-    <button onclick="openDiscord()">Discord</button>
-    <button onclick="openKick()">Kick</button>
-
-    <hr>
-
-    <div id="songName">FIRAS MUSIC</div>
-
-    <button onclick="toggleMusic()">▶ / ⏸</button>
-
-    <br><br>
-
-    🔊 <input type="range" min="0" max="1" step="0.01" value="0.5" oninput="setVolume(this.value)">
-  </div>
+  <div class="sub">WELCOME TO MY SITEWEB</div>
+  <button class="btn" onclick="enter()">CONTINUE</button>
 </div>
 
-<audio id="music"></audio>
+<!-- 💎 MAIN -->
+<div class="main" id="main">
+
+  <h2>👤 FIRAS</h2>
+
+  <div class="card">
+    <button onclick="openKick()">Kick</button>
+    <button onclick="openDiscord()">Discord</button>
+  </div>
+
+  <div class="card">
+    <h3>👨‍💻 DEV FiveM</h3>
+  </div>
+
+  <div class="card">
+    <h3>WELCOME TO MY DISCORD SERVER</h3>
+    <button onclick="window.open('https://discord.gg/EPMaJW3p')">JOIN</button>
+  </div>
+
+</div>
 
 <script>
 
 /* 🌌 stars */
-const bg = document.getElementById("bg");
+const star = document.getElementById("star");
 
-for (let i = 0; i < 100; i++) {
-  let s = document.createElement("div");
-  s.className = "bg-star";
-  s.style.left = Math.random() * 100 + "vw";
-  s.style.top = Math.random() * 100 + "vh";
-  bg.appendChild(s);
+for(let i=0;i<80;i++){
+  let d=document.createElement("div");
+  d.className="dot";
+  d.style.left=Math.random()*100+"vw";
+  d.style.top=Math.random()*100+"vh";
+  star.appendChild(d);
 }
 
-/* 🖱️ trail */
-document.addEventListener("mousemove", (e) => {
-  let t = document.createElement("div");
-  t.className = "trail";
-  t.style.left = e.clientX + "px";
-  t.style.top = e.clientY + "px";
-  document.body.appendChild(t);
-  setTimeout(() => t.remove(), 700);
-});
+/* 🚀 enter site */
+function enter(){
+  document.getElementById("intro").style.display="none";
+  document.getElementById("main").style.display="block";
+}
 
 /* 🔗 links */
-function openDiscord() {
+function openDiscord(){
   window.open("https://discord.com/users/1350859677470163026");
 }
 
-function openKick() {
+function openKick(){
   window.open("https://kick.com/FIRAS_RAHALI");
 }
 
-/* 🎧 MUSIC FIXED */
-let music = document.getElementById("music");
-music.volume = 0.5;
-
-let song = {
-  name: "FIRAS MUSIC",
-  file: "music.mp3"
-};
-
-function loadSong() {
-  music.src = song.file;
-  music.load();
-  document.getElementById("songName").innerText = song.name;
-}
-
-function toggleMusic() {
-  if (!music.src) loadSong();
-
-  if (music.paused) {
-    music.play().catch(()=>alert("اضغط مرة أخرى 🔊"));
-  } else {
-    music.pause();
-  }
-}
-
-/* 🔊 volume */
-function setVolume(v) {
-  music.volume = parseFloat(v);
-}
+/* 🖱️ mouse effect */
+document.addEventListener("mousemove",(e)=>{
+  let c=document.createElement("div");
+  c.className="cursor";
+  c.style.left=e.clientX+"px";
+  c.style.top=e.clientY+"px";
+  document.body.appendChild(c);
+  setTimeout(()=>c.remove(),300);
+});
 
 </script>
 

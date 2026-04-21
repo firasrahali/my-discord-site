@@ -1,41 +1,35 @@
 const userID = "1350859677470163026";
 
-// 🔥 Open Discord profile
+/* 🔥 Discord open */
 function openDiscord() {
   window.open(`https://discord.com/users/${userID}`, "_blank");
 }
 
-// 📋 Copy ID (safe + modern)
+/* 📋 copy ID */
 function copyID() {
   navigator.clipboard.writeText(userID)
-    .then(() => {
-      alert("ID Copied: " + userID);
-    })
-    .catch(() => {
-      alert("Failed to copy ID");
-    });
+    .then(() => alert("ID Copied ✅"))
+    .catch(() => alert("Copy failed ❌"));
 }
 
-// 🟢 Load Discord status (Lanyard API)
+/* 🟢 Discord status */
 async function loadDiscord() {
   const statusEl = document.getElementById("status");
   const avatarEl = document.getElementById("avatar");
 
   try {
     const res = await fetch(`https://api.lanyard.rest/v1/users/${userID}`);
-
-    if (!res.ok) throw new Error("API error");
-
     const json = await res.json();
     const d = json.data;
 
-    // 🖼️ avatar safe check
-    if (d.discord_user.avatar && avatarEl) {
-      avatarEl.src =
-        `https://cdn.discordapp.com/avatars/${userID}/${d.discord_user.avatar}.png`;
+    if (!d) throw new Error("No data");
+
+    /* 🖼️ avatar FIX */
+    if (avatarEl && d.discord_user.avatar) {
+      avatarEl.src = `https://cdn.discordapp.com/avatars/${d.discord_user.id}/${d.discord_user.avatar}.png`;
     }
 
-    // 🟢 status mapping
+    /* 🟢 status */
     const statusMap = {
       online: "🟢 Online",
       idle: "🟡 Idle",
@@ -50,12 +44,12 @@ async function loadDiscord() {
   } catch (err) {
     console.log(err);
 
-    const statusEl = document.getElementById("status");
     if (statusEl) {
-      statusEl.innerText = "⚠️ Status unavailable";
+      statusEl.innerText = "⚠️ Discord offline";
     }
   }
 }
 
-// 🚀 auto load
+/* 🚀 auto refresh (PRO feature) */
 loadDiscord();
+setInterval(loadDiscord, 10000);

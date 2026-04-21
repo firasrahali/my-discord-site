@@ -8,8 +8,8 @@ function openDiscord() {
 /* 📋 copy ID */
 function copyID() {
   navigator.clipboard.writeText(userID)
-    .then(() => alert("ID Copied ✅"))
-    .catch(() => alert("Copy failed ❌"));
+    .then(() => console.log("ID Copied"))
+    .catch(() => console.log("Copy failed"));
 }
 
 /* 🟢 load discord status */
@@ -20,14 +20,17 @@ async function loadDiscord() {
 
   try {
     const res = await fetch(`https://api.lanyard.rest/v1/users/${userID}`);
+
+    if (!res.ok) throw new Error("API error");
+
     const json = await res.json();
-    const d = json.data;
+    const d = json?.data;
 
     if (!d) return;
 
     /* 🖼️ avatar safe */
     if (avatarEl) {
-      const avatar = d.discord_user.avatar;
+      const avatar = d.discord_user?.avatar;
 
       avatarEl.src = avatar
         ? `https://cdn.discordapp.com/avatars/${d.discord_user.id}/${avatar}.png`
@@ -43,15 +46,19 @@ async function loadDiscord() {
     };
 
     if (statusEl) {
-      statusEl.innerText =
-        statusMap[d.discord_status] || "⚫ Unknown";
+      statusEl.textContent =
+        statusMap[d.discord_status] ?? "⚫ Unknown";
     }
 
   } catch (err) {
-    console.log(err);
+    console.log("Discord fetch error:", err);
 
     if (statusEl) {
-      statusEl.innerText = "⚠️ Offline / API error";
+      statusEl.textContent = "⚠️ Discord unavailable";
+    }
+
+    if (avatarEl) {
+      avatarEl.src = "https://cdn.discordapp.com/embed/avatars/0.png";
     }
   }
 }
@@ -59,5 +66,5 @@ async function loadDiscord() {
 /* 🚀 init */
 loadDiscord();
 
-/* 🔄 refresh safer */
-setInterval(loadDiscord, 15000);
+/* 🔄 refresh optimized (no overload) */
+setInterval(loadDiscord, 20000);

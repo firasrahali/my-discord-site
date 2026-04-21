@@ -28,6 +28,7 @@ body{
   position:fixed;
   inset:0;
   z-index:-2;
+  pointer-events:none;
 }
 
 .dot{
@@ -51,6 +52,8 @@ body{
   flex-direction:column;
   justify-content:center;
   align-items:center;
+  position:relative;
+  z-index:2;
 }
 
 .title{
@@ -94,6 +97,8 @@ body{
 .main{
   display:none;
   padding:40px;
+  position:relative;
+  z-index:2;
 }
 
 /* cards */
@@ -109,19 +114,23 @@ body{
 }
 
 .card:hover{
-  transform:scale(1.05);
-  box-shadow:0 0 50px #00f7ff;
+  transform:scale(1.06);
+  box-shadow:0 0 60px #00f7ff;
 }
 
-/* layout positions */
-.top-right{
+/* layout */
+.top-right,
+.right{
   position:absolute;
+  z-index:2;
+}
+
+.top-right{
   top:20px;
   right:20px;
 }
 
 .right{
-  position:absolute;
   right:20px;
   top:200px;
 }
@@ -140,18 +149,20 @@ button{
 
 button:hover{
   transform:translateY(-3px);
+  box-shadow:0 0 20px #00f7ff;
 }
 
-/* 🖱️ mouse trail */
+/* 🖱️ mouse trail FIXED */
 .trail{
-  position:absolute;
+  position:fixed;
   width:8px;
   height:8px;
   background:#00f7ff;
   border-radius:50%;
   pointer-events:none;
-  animation:fade 0.7s linear forwards;
+  z-index:9999;
   box-shadow:0 0 20px #00f7ff;
+  animation:fade 0.7s linear forwards;
 }
 
 @keyframes fade{

@@ -1,6 +1,6 @@
 const userID = "1350859677470163026";
 
-/* 🔥 open discord */
+/* 🚀 open discord profile */
 function openDiscord() {
   window.open(`https://discord.com/users/${userID}`, "_blank");
 }
@@ -8,11 +8,11 @@ function openDiscord() {
 /* 📋 copy ID */
 function copyID() {
   navigator.clipboard.writeText(userID)
-    .then(() => console.log("ID Copied"))
-    .catch(() => console.log("Copy failed"));
+    .then(() => alert("ID Copied ✅"))
+    .catch(() => alert("Copy failed ❌"));
 }
 
-/* 🟢 load discord status */
+/* 🟢 load discord status (Lanyard API) */
 async function loadDiscord() {
 
   const statusEl = document.getElementById("status");
@@ -28,12 +28,13 @@ async function loadDiscord() {
 
     if (!d) return;
 
-    /* 🖼️ avatar safe */
+    /* 🖼️ avatar */
     if (avatarEl) {
       const avatar = d.discord_user?.avatar;
+      const id = d.discord_user?.id;
 
       avatarEl.src = avatar
-        ? `https://cdn.discordapp.com/avatars/${d.discord_user.id}/${avatar}.png`
+        ? `https://cdn.discordapp.com/avatars/${id}/${avatar}.png`
         : "https://cdn.discordapp.com/embed/avatars/0.png";
     }
 
@@ -53,18 +54,13 @@ async function loadDiscord() {
   } catch (err) {
     console.log("Discord fetch error:", err);
 
-    if (statusEl) {
-      statusEl.textContent = "⚠️ Discord unavailable";
-    }
-
-    if (avatarEl) {
-      avatarEl.src = "https://cdn.discordapp.com/embed/avatars/0.png";
-    }
+    if (statusEl) statusEl.textContent = "⚠️ Discord unavailable";
+    if (avatarEl) avatarEl.src = "https://cdn.discordapp.com/embed/avatars/0.png";
   }
 }
 
-/* 🚀 init */
+/* 🚀 start */
 loadDiscord();
 
-/* 🔄 refresh optimized (no overload) */
+/* 🔄 refresh كل 20 ثانية */
 setInterval(loadDiscord, 20000);

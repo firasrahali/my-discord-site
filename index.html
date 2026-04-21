@@ -9,12 +9,11 @@ body{
   margin:0;
   font-family:Arial;
   overflow:hidden;
-  cursor:none;
   color:white;
   background:#000;
 }
 
-/* 🌌 background */
+/* background */
 .bg{
   position:fixed;
   inset:0;
@@ -30,28 +29,7 @@ body{
   100%{background-position:0% 50%}
 }
 
-/* ✨ stars */
-.star{
-  position:fixed;
-  inset:0;
-  z-index:-2;
-}
-
-.dot{
-  position:absolute;
-  width:2px;
-  height:2px;
-  background:white;
-  border-radius:50%;
-  animation:tw 3s infinite;
-}
-
-@keyframes tw{
-  0%,100%{opacity:.2}
-  50%{opacity:1}
-}
-
-/* 🌟 INTRO */
+/* intro */
 .intro{
   height:100vh;
   display:flex;
@@ -72,7 +50,7 @@ body{
   opacity:0.7;
 }
 
-/* 🔘 button */
+/* button */
 .btn{
   margin-top:25px;
   padding:15px 25px;
@@ -81,34 +59,12 @@ body{
   background:linear-gradient(90deg,#00f7ff,#5865F2);
   color:white;
   cursor:pointer;
-  font-weight:bold;
-  transition:0.3s;
 }
 
-.btn:hover{
-  transform:scale(1.1);
-}
-
-/* 💎 MAIN */
+/* main */
 .main{
   display:none;
   padding:40px;
-}
-
-/* layout */
-.top-right{
-  position:absolute;
-  top:20px;
-  right:20px;
-  padding:15px;
-  background:rgba(255,255,255,0.05);
-  border-radius:15px;
-  backdrop-filter:blur(10px);
-}
-
-.center{
-  text-align:center;
-  margin-top:80px;
 }
 
 .card{
@@ -117,13 +73,6 @@ body{
   width:300px;
   background:rgba(255,255,255,0.06);
   border-radius:20px;
-  backdrop-filter:blur(15px);
-}
-
-.right{
-  position:absolute;
-  right:20px;
-  top:200px;
 }
 
 button{
@@ -135,92 +84,60 @@ button{
   color:white;
   cursor:pointer;
 }
+
 </style>
 </head>
 
 <body>
 
 <div class="bg"></div>
-<div class="star" id="star"></div>
 
-<!-- 🌟 INTRO -->
+<!-- INTRO -->
 <div class="intro" id="intro">
   <div class="title">FIRAS</div>
   <div class="sub">WELCOME TO MY SITEWEB</div>
+
   <button class="btn" onclick="enter()">CONTINUE</button>
 </div>
 
-<!-- 💎 MAIN -->
+<!-- MAIN -->
 <div class="main" id="main">
 
-  <!-- DEV -->
-  <div class="top-right">
-    👨‍💻 DEV FiveM
+  <div class="card">
+    👤 PROFILE
+    <br><br>
+
+    <button onclick="openDiscord()">Discord</button>
   </div>
 
-  <!-- CENTER -->
-  <div class="center">
-    <h2>FIRAS</h2>
+  <div class="card">
+    💬 DISCORD SERVER
 
-    <div class="card">
-      👤 PROFILE
-      <br><br>
-      <button onclick="openKick()">Kick</button>
-      <button onclick="openDiscord()">Discord</button>
-    </div>
-  </div>
+    <br><br>
 
-  <!-- DISCORD SERVER -->
-  <div class="center">
-    <div class="card">
-      💬 WELCOME TO MY DISCORD SERVER
-      <br><br>
-      <button onclick="window.open('https://discord.gg/EPMaJW3p')">
-        JOIN SERVER
-      </button>
-    </div>
-  </div>
+    <!-- 🔥 FIXED SERVER ID -->
+    <iframe 
+      src="https://discord.com/widget?id=1471603948992594003&theme=dark"
+      width="300"
+      height="400"
+      frameborder="0">
+    </iframe>
 
-  <!-- RIGHT INFO -->
-  <div class="right">
-    <div class="card">
-      <b>مشروعي:</b><br>
-      هذا مشروع شخصي متاعي نطوّرو فيه برشا حاجات:<br>
-      مواقع، تصميم، و تجارب جديدة 💻🔥
-      <br><br>
-      <b>ملاحظة:</b><br>
-      تواصل معايا عادي لأي حاجة 🤝
-    </div>
   </div>
 
 </div>
 
 <script>
 
-/* 🌌 stars */
-const star=document.getElementById("star");
-
-for(let i=0;i<80;i++){
-  let d=document.createElement("div");
-  d.className="dot";
-  d.style.left=Math.random()*100+"vw";
-  d.style.top=Math.random()*100+"vh";
-  star.appendChild(d);
-}
-
-/* 🚀 continue */
+/* enter */
 function enter(){
   document.getElementById("intro").style.display="none";
   document.getElementById("main").style.display="block";
 }
 
-/* 🔗 links */
+/* discord profile */
 function openDiscord(){
-  window.open("https://discord.com/users/1350859677470163026");
-}
-
-function openKick(){
-  window.open("https://kick.com/FIRAS_RAHALI");
+  window.open("https://discord.com/users/1350859677470163026","_blank");
 }
 
 </script>

@@ -16,7 +16,7 @@ body {
   background: #000;
 }
 
-/* 🌈 animated background */
+/* 🌈 background */
 .bg {
   position: fixed;
   inset: 0;
@@ -54,7 +54,7 @@ body {
   50% { opacity: 1; }
 }
 
-/* 💎 container */
+/* 💎 layout */
 .container {
   position: relative;
   z-index: 2;
@@ -64,18 +64,10 @@ body {
 /* 🔥 title */
 .title {
   font-size: 70px;
-  font-weight: bold;
   letter-spacing: 14px;
   background: linear-gradient(90deg,#00f7ff,#5865F2,#fff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: float 3s ease-in-out infinite;
-}
-
-@keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-15px); }
-  100% { transform: translateY(0px); }
 }
 
 /* 💎 card */
@@ -85,35 +77,7 @@ body {
   border-radius: 20px;
   background: rgba(255,255,255,0.06);
   backdrop-filter: blur(15px);
-  min-width: 340px;
   display: inline-block;
-  border: 1px solid rgba(255,255,255,0.1);
-  transition: 0.4s;
-}
-
-.card:hover {
-  transform: scale(1.06);
-  box-shadow: 0 0 50px #00f7ff;
-  border: 1px solid #00f7ff;
-}
-
-/* 🎮 texts */
-.kick {
-  font-size: 26px;
-  color: #5865F2;
-  font-weight: bold;
-}
-
-.discord {
-  font-size: 18px;
-  color: #00c6ff;
-  margin-top: 8px;
-}
-
-.name {
-  font-size: 16px;
-  color: #aaa;
-  letter-spacing: 2px;
 }
 
 /* 🔘 buttons */
@@ -130,35 +94,26 @@ button {
 }
 
 button:hover {
-  transform: translateY(-3px);
+  transform: scale(1.1);
   box-shadow: 0 0 20px #00f7ff;
 }
 
-/* 🎵 music */
-.music {
-  margin-top: 15px;
-}
-
-#songName {
-  margin: 10px 0;
-  color: #00f7ff;
-  font-weight: bold;
-}
-
+/* 🎧 slider FIX */
 input[type="range"] {
   width: 100%;
+  cursor: pointer;
 }
 
 /* 🖱️ trail */
 .trail {
   position: absolute;
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
   background: #00f7ff;
   border-radius: 50%;
   pointer-events: none;
-  animation: fade 0.8s linear forwards;
-  box-shadow: 0 0 12px #00f7ff;
+  animation: fade 0.7s linear forwards;
+  box-shadow: 0 0 15px #00f7ff;
 }
 
 @keyframes fade {
@@ -174,45 +129,33 @@ input[type="range"] {
 <div class="star-bg" id="bg"></div>
 
 <div class="container">
-
   <div class="title">FIRAS</div>
 
   <div class="card">
-    <div class="kick">KICK</div>
-    <div class="discord">Discord ID: 1350859677470163026</div>
-    <div class="name">FIRAS_RAHALI</div>
-
-    <br>
 
     <button onclick="openDiscord()">Discord</button>
     <button onclick="openKick()">Kick</button>
 
     <hr>
 
-    <!-- 🎵 MUSIC -->
-    <div class="music">
-      <div id="songName">Alan Walker - Spectre</div>
+    <div id="songName">FIRAS MUSIC</div>
 
-      <button onclick="prevSong()">⬅</button>
-      <button onclick="toggleMusic()">▶ / ⏸</button>
-      <button onclick="nextSong()">➡</button>
+    <button onclick="toggleMusic()">▶ / ⏸</button>
 
-      <br>
+    <br><br>
 
-      🔊 <input type="range" min="0" max="1" step="0.01" value="0.5" oninput="setVolume(this.value)">
-    </div>
+    🔊 <input type="range" min="0" max="1" step="0.01" value="0.5" oninput="setVolume(this.value)">
   </div>
-
 </div>
 
-<!-- 🎧 audio -->
 <audio id="music"></audio>
 
 <script>
 
 /* 🌌 stars */
 const bg = document.getElementById("bg");
-for (let i = 0; i < 120; i++) {
+
+for (let i = 0; i < 100; i++) {
   let s = document.createElement("div");
   s.className = "bg-star";
   s.style.left = Math.random() * 100 + "vw";
@@ -227,59 +170,44 @@ document.addEventListener("mousemove", (e) => {
   t.style.left = e.clientX + "px";
   t.style.top = e.clientY + "px";
   document.body.appendChild(t);
-  setTimeout(() => t.remove(), 800);
+  setTimeout(() => t.remove(), 700);
 });
 
 /* 🔗 links */
 function openDiscord() {
-  window.open("https://discord.com/users/1350859677470163026", "_blank");
+  window.open("https://discord.com/users/1350859677470163026");
 }
 
 function openKick() {
-  window.open("https://kick.com/FIRAS_RAHALI", "_blank");
+  window.open("https://kick.com/FIRAS_RAHALI");
 }
 
-/* 🎵 music */
-let songs = [
-  { name: "Alan Walker - Spectre", file: "music.mp3" },
-  { name: "TheFatRat - Xenogenesis", file: "music2.mp3" }
-];
-
-let index = 0;
+/* 🎧 MUSIC FIXED */
 let music = document.getElementById("music");
-
-/* 🔥 volume initial */
 music.volume = 0.5;
 
+let song = {
+  name: "FIRAS MUSIC",
+  file: "music.mp3"
+};
+
 function loadSong() {
-  music.src = songs[index].file;
-  document.getElementById("songName").innerText = songs[index].name;
+  music.src = song.file;
+  music.load();
+  document.getElementById("songName").innerText = song.name;
 }
 
 function toggleMusic() {
   if (!music.src) loadSong();
 
   if (music.paused) {
-    music.play().catch(() => {
-      alert("اضغط مرة أخرى 🔊");
-    });
+    music.play().catch(()=>alert("اضغط مرة أخرى 🔊"));
   } else {
     music.pause();
   }
 }
 
-function nextSong() {
-  index = (index + 1) % songs.length;
-  loadSong();
-  music.play();
-}
-
-function prevSong() {
-  index = (index - 1 + songs.length) % songs.length;
-  loadSong();
-  music.play();
-}
-
+/* 🔊 volume */
 function setVolume(v) {
   music.volume = parseFloat(v);
 }

@@ -2,118 +2,112 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>FIRAS ULTRA PRO</title>
+<title>FIRAS ULTRA V4</title>
 
 <style>
 body{
   margin:0;
   font-family:Arial;
-  overflow:hidden;
+  background:black;
   color:white;
-  background:#000;
+  overflow:hidden;
 }
 
-/* 🌌 background */
+/* 🌌 background neon */
 .bg{
   position:fixed;
   inset:0;
-  background:linear-gradient(-45deg,#0f0c29,#302b63,#24243e,#000);
-  background-size:400% 400%;
-  animation:bg 10s infinite;
-  z-index:-2;
+  background:radial-gradient(circle,#0f0c29,#000);
+  z-index:-3;
 }
 
-@keyframes bg{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
-}
-
-/* 🌟 intro */
+/* 🔥 hacking intro */
 .intro{
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
+  position:absolute;
+  inset:0;
+  background:black;
+  color:#00ff9f;
+  font-family:monospace;
+  padding:20px;
+  overflow:hidden;
 }
 
-.title{
-  font-size:80px;
-  background:linear-gradient(90deg,#00f7ff,#5865F2,#fff);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  animation:float 3s infinite;
+#hackText{
+  white-space:pre-line;
+  font-size:14px;
 }
 
-@keyframes float{
-  0%{transform:translateY(0)}
-  50%{transform:translateY(-15px)}
-  100%{transform:translateY(0)}
-}
-
-.btn{
-  margin-top:30px;
-  padding:15px 30px;
-  border:none;
-  border-radius:25px;
-  background:linear-gradient(90deg,#00f7ff,#5865F2);
-  color:white;
-  cursor:pointer;
-  font-size:18px;
-  transition:0.3s;
-}
-
-.btn:hover{
-  transform:scale(1.1);
-  box-shadow:0 0 30px #00f7ff;
-}
-
-/* 💎 main */
+/* hidden main */
 .main{
   display:none;
   height:100vh;
-  display:flex;
   justify-content:center;
   align-items:center;
   flex-direction:column;
   text-align:center;
-  animation:fadeIn 1s;
 }
 
-@keyframes fadeIn{
-  from{opacity:0;transform:scale(0.9)}
-  to{opacity:1;transform:scale(1)}
-}
-
-/* card */
+/* 💎 neon cards */
 .card{
   padding:30px;
   width:350px;
-  background:rgba(255,255,255,0.06);
-  border-radius:25px;
-  backdrop-filter:blur(15px);
-  border:1px solid rgba(255,255,255,0.1);
-  box-shadow:0 0 40px rgba(0,255,255,0.2);
-  margin-bottom:20px;
+  background:rgba(0,0,0,0.7);
+  border-radius:20px;
+  border:1px solid #00f7ff;
+  box-shadow:0 0 20px #00f7ff,0 0 40px #00f7ff;
+  margin:15px;
 }
 
-/* arabic text */
+/* arabic */
 .ar{
-  font-size:18px;
-  line-height:1.8;
   direction:rtl;
+  line-height:1.8;
 }
 
-/* buttons */
+/* neon button */
 button{
-  margin-top:15px;
-  padding:12px 20px;
+  padding:10px 20px;
+  margin-top:10px;
   border:none;
-  border-radius:15px;
-  background:linear-gradient(90deg,#5865F2,#00f7ff);
-  color:white;
+  border-radius:10px;
+  background:#00f7ff;
+  color:black;
   cursor:pointer;
+  box-shadow:0 0 10px #00f7ff,0 0 20px #00f7ff;
+}
+
+/* 🖱️ neon cursor */
+.cursor{
+  position:fixed;
+  width:15px;
+  height:15px;
+  border-radius:50%;
+  background:#00f7ff;
+  pointer-events:none;
+  z-index:9999;
+  box-shadow:0 0 20px #00f7ff,0 0 40px #00f7ff;
+}
+
+/* trail */
+.trail{
+  position:fixed;
+  width:6px;
+  height:6px;
+  background:#00f7ff;
+  border-radius:50%;
+  pointer-events:none;
+  opacity:0.6;
+  animation:fade 0.6s linear forwards;
+}
+
+@keyframes fade{
+  to{opacity:0;transform:scale(0);}
+}
+
+/* status */
+.status{
+  margin-top:10px;
+  font-size:18px;
 }
 </style>
 </head>
@@ -122,47 +116,120 @@ button{
 
 <div class="bg"></div>
 
-<!-- INTRO -->
+<!-- 🔥 INTRO CINEMATIC -->
 <div class="intro" id="intro">
-  <div class="title">FIRAS</div>
-  <button class="btn" onclick="enter()">CONTINUE</button>
+  <div id="hackText"></div>
 </div>
 
-<!-- MAIN -->
+<!-- 💎 MAIN -->
 <div class="main" id="main">
 
-  <!-- TEXT CARD -->
   <div class="card ar">
     👨‍💻 Developer FiveM<br><br>
     كان تحتاج Developer، كلّمني على Discord 🤝
   </div>
 
-  <!-- DISCORD -->
+  <!-- Discord live -->
   <div class="card">
-    <iframe 
-      src="https://discord.com/widget?id=1471603948992594003&theme=dark"
-      width="300"
-      height="400"
-      frameborder="0">
-    </iframe>
+    <img id="avatar" width="80" style="border-radius:50%"><br>
+    <div id="status" class="status">Loading...</div>
 
     <br>
 
+    <iframe 
+      src="https://discord.com/widget?id=1471603948992594003&theme=dark"
+      width="300"
+      height="300">
+    </iframe>
+
+    <br>
     <button onclick="openDiscord()">My Discord</button>
   </div>
 
 </div>
 
+<!-- 🎵 sounds -->
+<audio id="bgMusic" src="music.mp3" loop></audio>
+<audio id="clickSound" src="https://www.myinstants.com/media/sounds/mouse-click.mp3"></audio>
+
 <script>
 
-function enter(){
-  document.getElementById("intro").style.display="none";
-  document.getElementById("main").style.display="flex";
+/* 🔥 hacking effect */
+const text = [
+"Connecting...",
+"Access granted...",
+"Loading user FIRAS...",
+"Decrypting data...",
+"Welcome..."
+];
+
+let i=0;
+let j=0;
+const speed=30;
+
+function type(){
+  if(i<text.length){
+    if(j<text[i].length){
+      document.getElementById("hackText").innerHTML+=text[i][j];
+      j++;
+      setTimeout(type,speed);
+    }else{
+      document.getElementById("hackText").innerHTML+="\n";
+      i++; j=0;
+      setTimeout(type,200);
+    }
+  }else{
+    setTimeout(startSite,800);
+  }
 }
 
+function startSite(){
+  document.getElementById("intro").style.display="none";
+  document.getElementById("main").style.display="flex";
+  document.getElementById("bgMusic").play();
+}
+
+type();
+
+/* 🔗 discord */
 function openDiscord(){
+  document.getElementById("clickSound").play();
   window.open("https://discord.com/users/1350859677470163026","_blank");
 }
+
+/* 🟢 discord status */
+const userID="1350859677470163026";
+
+async function loadDiscord(){
+  try{
+    const res=await fetch(`https://api.lanyard.rest/v1/users/${userID}`);
+    const data=(await res.json()).data;
+
+    document.getElementById("status").innerText=data.discord_status;
+    document.getElementById("avatar").src=
+    `https://cdn.discordapp.com/avatars/${data.discord_user.id}/${data.discord_user.avatar}.png`;
+  }catch{}
+}
+loadDiscord();
+setInterval(loadDiscord,20000);
+
+/* 🖱️ cursor */
+const cursor=document.createElement("div");
+cursor.className="cursor";
+document.body.appendChild(cursor);
+
+document.addEventListener("mousemove",(e)=>{
+  cursor.style.left=e.clientX+"px";
+  cursor.style.top=e.clientY+"px";
+
+  const dot=document.createElement("div");
+  dot.className="trail";
+  dot.style.left=e.clientX+"px";
+  dot.style.top=e.clientY+"px";
+  document.body.appendChild(dot);
+
+  setTimeout(()=>dot.remove(),500);
+});
 
 </script>
 

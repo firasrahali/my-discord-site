@@ -1,22 +1,22 @@
 body{
   margin:0;
   font-family:Arial;
-  overflow-x:hidden; /* 🔥 FIX مهم */
+  overflow:hidden;
   color:white;
   background:#000;
 }
 
-/* 🌌 background */
+/* 🌌 animated background */
 .bg{
   position:fixed;
   inset:0;
   background:linear-gradient(-45deg,#0f0c29,#302b63,#24243e,#000);
   background-size:400% 400%;
-  animation:move 10s infinite;
+  animation:bg 10s infinite;
   z-index:-2;
 }
 
-@keyframes move{
+@keyframes bg{
   0%{background-position:0% 50%}
   50%{background-position:100% 50%}
   100%{background-position:0% 50%}
@@ -29,67 +29,87 @@ body{
   flex-direction:column;
   justify-content:center;
   align-items:center;
-  text-align:center;
 }
 
 .title{
-  font-size:70px;
+  font-size:80px;
   background:linear-gradient(90deg,#00f7ff,#5865F2,#fff);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
+  animation:float 3s infinite;
 }
 
-.sub{
-  margin-top:10px;
-  opacity:0.7;
+@keyframes float{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-15px)}
+  100%{transform:translateY(0)}
 }
 
-/* 🔘 button */
+/* button */
 .btn{
-  margin-top:25px;
-  padding:15px 25px;
+  margin-top:30px;
+  padding:15px 30px;
   border:none;
-  border-radius:20px;
+  border-radius:25px;
   background:linear-gradient(90deg,#00f7ff,#5865F2);
   color:white;
   cursor:pointer;
+  font-size:18px;
   transition:0.3s;
 }
 
 .btn:hover{
   transform:scale(1.1);
+  box-shadow:0 0 30px #00f7ff;
 }
 
 /* 💎 main */
 .main{
   display:none;
-  padding:40px;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
   text-align:center;
+  animation:fadeIn 1s;
 }
 
-/* card */
+@keyframes fadeIn{
+  from{opacity:0;transform:scale(0.9)}
+  to{opacity:1;transform:scale(1)}
+}
+
+/* cards */
 .card{
-  margin:20px auto;
-  padding:25px;
-  width:320px;
+  padding:30px;
+  width:350px;
   background:rgba(255,255,255,0.06);
-  border-radius:20px;
-  backdrop-filter:blur(10px);
+  border-radius:25px;
+  backdrop-filter:blur(15px);
   border:1px solid rgba(255,255,255,0.1);
+  box-shadow:0 0 40px rgba(0,255,255,0.2);
+  margin-bottom:20px;
   transition:0.3s;
 }
 
-/* ✨ FIX hover stability */
 .card:hover{
-  transform:translateY(-5px) scale(1.02);
+  transform:scale(1.03);
+}
+
+/* arabic text */
+.ar{
+  font-size:18px;
+  line-height:1.8;
+  direction:rtl;
 }
 
 /* buttons */
 button{
-  margin:8px;
-  padding:10px 15px;
+  margin-top:15px;
+  padding:12px 20px;
   border:none;
-  border-radius:12px;
+  border-radius:15px;
   background:linear-gradient(90deg,#5865F2,#00f7ff);
   color:white;
   cursor:pointer;
@@ -98,4 +118,22 @@ button{
 
 button:hover{
   transform:translateY(-3px);
+}
+
+/* 🖱️ mouse trail */
+.trail{
+  position:fixed;
+  width:8px;
+  height:8px;
+  background:#00f7ff;
+  border-radius:50%;
+  pointer-events:none;
+  z-index:9999;
+  box-shadow:0 0 15px #00f7ff;
+  animation:fade 0.6s linear forwards;
+}
+
+@keyframes fade{
+  0%{transform:scale(1);opacity:1}
+  100%{transform:scale(0);opacity:0}
 }

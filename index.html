@@ -2,108 +2,118 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>FIRAS</title>
+<title>FIRAS ULTRA PRO</title>
 
 <style>
 body{
   margin:0;
   font-family:Arial;
-  overflow-x:hidden;
+  overflow:hidden;
   color:white;
   background:#000;
 }
 
-/* background */
+/* 🌌 background */
 .bg{
   position:fixed;
   inset:0;
   background:linear-gradient(-45deg,#0f0c29,#302b63,#24243e,#000);
   background-size:400% 400%;
-  animation:move 10s infinite;
-  z-index:-3;
+  animation:bg 10s infinite;
+  z-index:-2;
 }
 
-@keyframes move{
+@keyframes bg{
   0%{background-position:0% 50%}
   50%{background-position:100% 50%}
   100%{background-position:0% 50%}
 }
 
-/* intro */
+/* 🌟 intro */
 .intro{
   height:100vh;
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
-  text-align:center;
 }
 
 .title{
-  font-size:70px;
+  font-size:80px;
   background:linear-gradient(90deg,#00f7ff,#5865F2,#fff);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
+  animation:float 3s infinite;
 }
 
-.sub{
-  margin-top:10px;
-  opacity:0.7;
+@keyframes float{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-15px)}
+  100%{transform:translateY(0)}
 }
 
-/* button */
 .btn{
-  margin-top:25px;
-  padding:15px 25px;
+  margin-top:30px;
+  padding:15px 30px;
   border:none;
-  border-radius:20px;
+  border-radius:25px;
   background:linear-gradient(90deg,#00f7ff,#5865F2);
   color:white;
   cursor:pointer;
+  font-size:18px;
   transition:0.3s;
 }
 
 .btn:hover{
   transform:scale(1.1);
+  box-shadow:0 0 30px #00f7ff;
 }
 
-/* main */
+/* 💎 main */
 .main{
   display:none;
-  padding:40px;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
   text-align:center;
+  animation:fadeIn 1s;
 }
 
-/* cards */
+@keyframes fadeIn{
+  from{opacity:0;transform:scale(0.9)}
+  to{opacity:1;transform:scale(1)}
+}
+
+/* card */
 .card{
-  margin:20px auto;
-  padding:25px;
-  width:320px;
+  padding:30px;
+  width:350px;
   background:rgba(255,255,255,0.06);
-  border-radius:20px;
-  backdrop-filter:blur(10px);
+  border-radius:25px;
+  backdrop-filter:blur(15px);
   border:1px solid rgba(255,255,255,0.1);
+  box-shadow:0 0 40px rgba(0,255,255,0.2);
+  margin-bottom:20px;
+}
+
+/* arabic text */
+.ar{
+  font-size:18px;
+  line-height:1.8;
+  direction:rtl;
 }
 
 /* buttons */
 button{
-  margin:8px;
-  padding:10px 15px;
+  margin-top:15px;
+  padding:12px 20px;
   border:none;
-  border-radius:12px;
+  border-radius:15px;
   background:linear-gradient(90deg,#5865F2,#00f7ff);
   color:white;
   cursor:pointer;
-  transition:0.3s;
-}
-
-button:hover{
-  transform:translateY(-3px);
-}
-
-/* discord iframe fix */
-iframe{
-  border-radius:12px;
 }
 </style>
 </head>
@@ -115,47 +125,41 @@ iframe{
 <!-- INTRO -->
 <div class="intro" id="intro">
   <div class="title">FIRAS</div>
-  <div class="sub">WELCOME TO MY SITEWEB</div>
-
   <button class="btn" onclick="enter()">CONTINUE</button>
 </div>
 
 <!-- MAIN -->
 <div class="main" id="main">
 
-  <!-- PROFILE -->
-  <div class="card">
-    👤 PROFILE
-    <br><br>
-
-    <button onclick="openDiscord()">Discord</button>
+  <!-- TEXT CARD -->
+  <div class="card ar">
+    👨‍💻 Developer FiveM<br><br>
+    كان تحتاج Developer، كلّمني على Discord 🤝
   </div>
 
-  <!-- DISCORD SERVER -->
+  <!-- DISCORD -->
   <div class="card">
-    💬 DISCORD SERVER
-
-    <br><br>
-
     <iframe 
       src="https://discord.com/widget?id=1471603948992594003&theme=dark"
       width="300"
-      height="400">
+      height="400"
+      frameborder="0">
     </iframe>
 
+    <br>
+
+    <button onclick="openDiscord()">My Discord</button>
   </div>
 
 </div>
 
 <script>
 
-/* enter */
 function enter(){
   document.getElementById("intro").style.display="none";
-  document.getElementById("main").style.display="block";
+  document.getElementById("main").style.display="flex";
 }
 
-/* discord profile */
 function openDiscord(){
   window.open("https://discord.com/users/1350859677470163026","_blank");
 }
